@@ -10,7 +10,7 @@ class CandidateRow
   end
 
   def to_csv
-    [name, dob, gender, address, ethnicity, religion, giao_duc_pho_thong, chuyen_mon_nghiep_vu, hoc_ham_hoc_vi,
+    [name, dob, gender, hometown, address, ethnicity, religion, giao_duc_pho_thong, chuyen_mon_nghiep_vu, hoc_ham_hoc_vi,
       ly_luan_chinh_tri, position, employer, party_member_since, parliment_past_memberships, dai_bieu_hdnd]
   end
 
@@ -26,52 +26,56 @@ class CandidateRow
     @row.cells[3].text.clean
   end
 
-  def address
+  def hometown
     @row.cells[4].text.clean
   end
 
-  def ethnicity
+  def address
     @row.cells[5].text.clean
   end
 
-  def religion
+  def ethnicity
     @row.cells[6].text.clean
   end
 
-  def giao_duc_pho_thong
+  def religion
     @row.cells[7].text.clean
   end
 
-  def chuyen_mon_nghiep_vu
+  def giao_duc_pho_thong
     @row.cells[8].text.clean
   end
 
-  def hoc_ham_hoc_vi
+  def chuyen_mon_nghiep_vu
     @row.cells[9].text.clean
   end
 
-  def ly_luan_chinh_tri
+  def hoc_ham_hoc_vi
     @row.cells[10].text.clean
   end
 
-  def position
+  def ly_luan_chinh_tri
     @row.cells[11].text.clean
   end
 
-  def employer
+  def position
     @row.cells[12].text.clean
   end
 
-  def party_member_since
+  def employer
     @row.cells[13].text.clean
   end
 
-  def parliment_past_memberships
+  def party_member_since
     @row.cells[14].text.clean
   end
 
-  def dai_bieu_hdnd
+  def parliment_past_memberships
     @row.cells[15].text.clean
+  end
+
+  def dai_bieu_hdnd
+    @row.cells[16].text.clean
   end
 end
 
@@ -105,15 +109,15 @@ candidates_doc = Docx::Document.open('./candidates.docx')
 #   end
 # end
 
-CSV.foreach("./voting_units.csv") do |unit|
+CSV.foreach("./voting_units.csv", headers: true) do |unit|
   unit_province = unit[0]
   unit_number = unit[1]
 
-  table = CandidateTable.new candidates_doc.tables.last
+  table = CandidateTable.new candidates_doc.tables[unit_index]
   table.candidate_rows.each do |r|
     candidate_row = r.to_csv
-    candidate_row.unshift(unit_province)
     candidate_row.unshift(unit_number)
+    candidate_row.unshift(unit_province)
     candidates << candidate_row
   end
 
@@ -123,6 +127,12 @@ CSV.foreach("./voting_units.csv") do |unit|
 end
 
 CSV.open("./candidates.csv", "w") do |csv|
+  csv << [
+    "Tỉnh thành", "Đơn vị bầu cử",
+    "Họ và tên", "Ngày, tháng, năm sinh", "Giới tính", "Quê quán", "Nơi cư trú", "Dân tộc", "Tôn giáo",
+    "Giáo dục phổ thông", "Chuyên môn, nghiệp vụ", "Học hàm, học vị","Lý luận chính trị",
+    "Nghề nghiệp, chức vụ", "Nơi công tác", "Ngày vào Đảng", "ĐBQH khóa Đại biểu", "HĐND cấp, nhiệm kỳ"]
+
   candidates.each do |u|
     csv << u
   end
