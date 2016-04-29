@@ -352,8 +352,8 @@ Số đại biểu Quốc hội được bầu là ba.
 Đơn vị số 3:
 Gồm các huyện: Gia Lộc, Tứ Kỳ, Cẩm Giàng.
 Số đại biểu Quốc hội được bầu là hai.
-	Đơn vị số 4: 
-		Gồm các huyện: Bình Giang, Thanh Miện và Ninh Giang.
+Đơn vị số 4: 
+Gồm các huyện: Bình Giang, Thanh Miện và Ninh Giang.
 Số đại biểu Quốc hội được bầu là hai.
 29- Tỉnh Hậu Giang
 Số đơn vị bầu cử là hai.
@@ -570,7 +570,7 @@ Gồm thành phố Quảng Ngãi và các huyện: Tư Nghĩa, Nghĩa Hành, Lý
 Số đại biểu Quốc hội được bầu là ba.
 Đơn vị số 3:
 Gồm các huyện: Mộ Đức, Đức Phổ, Ba Tơ, Minh Long.
-	Số đại biểu Quốc hội được bầu là hai.
+Số đại biểu Quốc hội được bầu là hai.
 49- Tỉnh Quảng Ninh
 Số đơn vị bầu cử là ba.
 Số đại biểu Quốc hội được bầu là bảy.

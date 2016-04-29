@@ -65,8 +65,8 @@ File.open("./NQ53.txt", "r") do |f|
     line = f.readline
     if province?(line)
       current_province = province_name(line)
-      current_units_count = province_units_count(f.readline)
-      current_members_count = province_members_count(f.readline)
+      current_units_count = province_units_count(f.readline) # not used
+      current_members_count = province_members_count(f.readline) # not used
 
       current_unit = unit_name(f.readline)
       area = unit_area(f.readline)
@@ -81,7 +81,9 @@ File.open("./NQ53.txt", "r") do |f|
   end
 end
 
-CSV.open("./units.csv", "w") do |csv|
+CSV.open("./voting_units.csv", "w") do |csv|
+  csv << ["Tỉnh thành", "Đơn vị bầu cử", "Địa phận", "Số ĐBQH"]
+
   units.each do |u|
     csv << u
   end
