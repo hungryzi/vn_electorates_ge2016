@@ -9,7 +9,7 @@ def province?(line)
 end
 
 def province_name(line)
-  line.remove(/[0-9]*\s?\-\s/).chomp("").strip
+  line.remove(/[0-9]*\s?\-\s/).remove("Tỉnh").remove("Thành phố").chomp("").strip
 end
 
 def province_units_count(line)
@@ -60,7 +60,7 @@ units = []
 
 File.open("./NQ53.txt", "r") do |f|
   current_province = nil
-
+  stt = 1
   until f.eof do
     line = f.readline
     if province?(line)
@@ -77,12 +77,14 @@ File.open("./NQ53.txt", "r") do |f|
       members_count = unit_members_count(f.readline)
     end
 
-    units << [current_province, current_unit, area, members_count]
+    units << [stt, current_province, current_unit, area, members_count]
+
+    stt += 1
   end
 end
 
 CSV.open("./voting_units.csv", "w") do |csv|
-  csv << ["Tỉnh thành", "Đơn vị bầu cử", "Địa phận", "Số ĐBQH"]
+  csv << ["STT", "Tỉnh thành", "Đơn vị bầu cử", "Địa phận", "Số ĐBQH"]
 
   units.each do |u|
     csv << u

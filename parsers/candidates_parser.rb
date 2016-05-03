@@ -101,6 +101,7 @@ require 'docx'
 candidates = []
 
 unit_index = 0
+candidate_index = 1
 candidates_doc = Docx::Document.open('./candidates.docx')
 
 # candidates_doc.paragraphs.each do |p|
@@ -110,15 +111,18 @@ candidates_doc = Docx::Document.open('./candidates.docx')
 # end
 
 CSV.foreach("./voting_units.csv", headers: true) do |unit|
-  unit_province = unit[0]
-  unit_number = unit[1]
+  unit_province = unit[1]
+  unit_number = unit[2]
 
   table = CandidateTable.new candidates_doc.tables[unit_index]
   table.candidate_rows.each do |r|
     candidate_row = r.to_csv
     candidate_row.unshift(unit_number)
     candidate_row.unshift(unit_province)
+    candidate_row.unshift(candidate_index)
+
     candidates << candidate_row
+    candidate_index += 1
   end
 
   unit_index += 1
@@ -128,6 +132,7 @@ end
 
 CSV.open("./candidates.csv", "w") do |csv|
   csv << [
+    "STT",
     "Tỉnh thành", "Đơn vị bầu cử",
     "Họ và tên", "Ngày, tháng, năm sinh", "Giới tính", "Quê quán", "Nơi cư trú", "Dân tộc", "Tôn giáo",
     "Giáo dục phổ thông", "Chuyên môn, nghiệp vụ", "Học hàm, học vị","Lý luận chính trị",
