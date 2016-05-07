@@ -110,7 +110,7 @@ candidates_doc = Docx::Document.open('./candidates.docx')
 #   end
 # end
 
-CSV.foreach("./voting_units.csv", headers: true) do |unit|
+CSV.foreach("./electorates.csv", headers: true) do |unit|
   unit_province = unit[1]
   unit_number = unit[2]
 
